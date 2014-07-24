@@ -97,7 +97,7 @@ return array(
      */
     'zfcDatagrid_dbAdapter' => array(
         'driver' => 'Pdo_Sqlite',
-        'database' => __DIR__ . '/../src/ZfcDatagrid/Examples/Data/examples.sqlite'
+        'database' => __DIR__ . '/../src/ZfcDatagridExamples/Data/examples.sqlite'
     ),
     
     'doctrine' => array(
@@ -106,7 +106,7 @@ return array(
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOSqlite\Driver',
                 'params' => array(
                     'charset' => 'utf8',
-                    'path' => __DIR__ . '/../src/ZfcDatagrid/Examples/Data/examples.sqlite'
+                    'path' => __DIR__ . '/../src/ZfcDatagridExamples/Data/examples.sqlite'
                 )
             )
         ),
@@ -129,7 +129,7 @@ return array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => array(
-                    __DIR__ . '/../src/ZfcDatagrid/Examples/Entity'
+                    __DIR__ . '/../src/ZfcDatagridExamples/Entity'
                 )
             ),
             
