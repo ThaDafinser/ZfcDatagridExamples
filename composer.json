@@ -1,0 +1,33 @@
+{
+    "name":        "thadafinser/zfc-datagrid-examples",
+    "description": "Examples for thadafinser/zfc-datagrid",
+    "type":        "library",
+    "license":     "WTFPL",
+    "keywords": [
+        "ZfcDatagrid",
+        "Datagrid",
+        "Datatable",
+        "module",
+        "zf2",
+        "Zend Framework"
+    ],
+    
+    "authors": [{
+        "name": "Martin Keckeis",
+        "email": "martin.keckeis1@gmail.com"
+    }],
+    
+    "minimum-stability": "dev",
+    
+    "require": {       
+        "thadafinser/zfc-datagrid": "*"
+    },
+    
+
+    "autoload": {
+        "psr-0": {
+            "ZfcDatagridExamples\\": "src/",
+            "ZfcDatagridExamplesTest\\": "tests/"
+        }
+    }
+}
