@@ -21,7 +21,7 @@
     
     "require": {       
         "thadafinser/zfc-datagrid": "*",
-        "doctrine/doctrine-orm-module": ">=0.8",
+        "doctrine/doctrine-orm-module": ">=0.8"
     },
     
 
