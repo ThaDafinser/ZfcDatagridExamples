@@ -20,7 +20,8 @@
     "minimum-stability": "dev",
     
     "require": {       
-        "thadafinser/zfc-datagrid": "*"
+        "thadafinser/zfc-datagrid": "*",
+        "doctrine/doctrine-orm-module": ">=0.8",
     },
     
 
