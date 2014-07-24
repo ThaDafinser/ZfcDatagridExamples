@@ -9,6 +9,7 @@ return array(
   'ZfcDatagridExamples\Data\Doctrine2'                       => __DIR__ . '/src/ZfcDatagridExamples/Data/Doctrine2.php',
   'ZfcDatagridExamples\Data\PhpArray'                        => __DIR__ . '/src/ZfcDatagridExamples/Data/PhpArray.php',
   'ZfcDatagridExamples\Data\ZendSelect'                      => __DIR__ . '/src/ZfcDatagridExamples/Data/ZendSelect.php',
+  'ZfcDatagridExamples\Entity\Person'                        => __DIR__ . '/src/ZfcDatagridExamples/Entity/Person.php',
   'ZfcDatagridExamples\Module'                               => __DIR__ . '/src/ZfcDatagridExamples/Module.php',
   'ZfcDatagridTest\ModuleTest'                               => __DIR__ . '/tests/ZfcDatagridExamplesTest/ModuleTest.php',
 );
