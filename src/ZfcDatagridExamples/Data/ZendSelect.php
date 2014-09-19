@@ -40,9 +40,6 @@ class ZendSelect implements ServiceLocatorAwareInterface
         $select->from(array(
             'p' => 'person'
         ));
-        $select->join(array(
-            'g' => 'group'
-        ), 'g.id = p.primaryGroupId', 'name', 'left');
 
         return $select;
     }

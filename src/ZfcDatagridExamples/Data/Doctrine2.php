@@ -7,6 +7,7 @@ use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Input\StringInput;
 use ZfcDatagridExamples\Entity\Person;
+use ZfcDatagridExamples\Entity\Group;
 
 class Doctrine2 implements ServiceLocatorAwareInterface
 {
@@ -16,7 +17,7 @@ class Doctrine2 implements ServiceLocatorAwareInterface
     /**
      * Set service locator
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param ServiceLocatorInterface $serviceLocator            
      */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -35,59 +36,64 @@ class Doctrine2 implements ServiceLocatorAwareInterface
 
     private function createTables()
     {
-        /* @var $entityManager \Doctrine\ORM\EntityManager */
-        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_zfcDatagrid');
-
+        /* @var $em \Doctrine\ORM\EntityManager */
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_zfcDatagrid');
+        
         /* @var $cli \Symfony\Component\Console\Application */
         $cli = $this->getServiceLocator()->get('doctrine.cli');
         $helperSet = $cli->getHelperSet();
-        $helperSet->set(new EntityManagerHelper($entityManager), 'em');
-
+        $helperSet->set(new EntityManagerHelper($em), 'em');
+        
         $fp = tmpfile();
-
-        // $input = new StringInput('orm:schema-tool:create --dump-sql');
+        
         $input = new StringInput('orm:schema-tool:create');
-
+        
         /* @var $command \Doctrine\ORM\Tools\Console\Command\SchemaTool\CreateCommand */
         $command = $cli->get('orm:schema-tool:create');
         $returnCode = $command->run($input, new StreamOutput($fp));
-
+        
         $phpArray = $this->getServiceLocator()->get('zfcDatagrid.examples.data.phpArray');
         $persons = $phpArray->getPersons();
-
+        
         $this->createData(new Person(), $persons);
-        // $entityManager->f
-        // fseek($fp, 0);
-        // $output = '';
-        // while (! feof($fp)) {
-        // $output = fread($fp, 4096);
-        // }
-        // fclose($fp);
-
-        // echo '<pre>';
-        // print_r($output);
-        // print_r($returnCode);
-        // echo 'DONE!';
-        // exit();
+        
+        $person1 = $em->find('ZfcDatagridExamples\Entity\Person', 2);
+        $person2 = $em->find('ZfcDatagridExamples\Entity\Person', 5);
+        
+        $group = new Group();
+        $group->setPerson($person1);
+        $group->setName('MyGroup');
+        $em->persist($group);
+        
+        $group = new Group();
+        $group->setPerson($person1);
+        $group->setName('MyGroup2');
+        $em->persist($group);
+        
+        $group = new Group();
+        $group->setPerson($person2);
+        $group->setName('MyGroup');
+        $em->persist($group);
+        $em->flush();
     }
 
     private function createData($entity, $data)
     {
-        /* @var $entityManager \Doctrine\ORM\EntityManager */
-        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_zfcDatagrid');
-
+        /* @var $em \Doctrine\ORM\EntityManager */
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_zfcDatagrid');
+        
         foreach ($data as $row) {
-
+            
             $newEntity = clone $entity;
             foreach ($row as $key => $value) {
                 $method = 'set' . ucfirst($key);
                 $newEntity->{$method}($value);
             }
-
-            $entityManager->persist($newEntity);
+            
+            $em->persist($newEntity);
         }
-
-        $entityManager->flush();
+        
+        $em->flush();
     }
 
     /**
@@ -99,11 +105,7 @@ class Doctrine2 implements ServiceLocatorAwareInterface
         /* @var $entityManager \Doctrine\ORM\EntityManager */
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_zfcDatagrid');
         $personRepo = $entityManager->getRepository('ZfcDatagridExamples\Entity\Person');
-
-        // if ($entityManager->getConnection()->isConnected() === true) {
-
-        // }
-
+        
         // Test if the SqLite is ready...
         try {
             $data = $personRepo->find(2);
@@ -111,11 +113,11 @@ class Doctrine2 implements ServiceLocatorAwareInterface
             $this->createTables();
             $data = $personRepo->find(2);
         }
-
+        
         $qb = $entityManager->createQueryBuilder();
         $qb->select('p');
         $qb->from('ZfcDatagridExamples\Entity\Person', 'p');
-
+        
         return $qb;
     }
 }
