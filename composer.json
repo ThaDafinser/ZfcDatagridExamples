@@ -17,8 +17,6 @@
         "email": "martin.keckeis1@gmail.com"
     }],
     
-    "minimum-stability": "dev",
-    
     "require": {       
         "thadafinser/zfc-datagrid": "~1.0",
         "doctrine/doctrine-orm-module": ">=0.8"
