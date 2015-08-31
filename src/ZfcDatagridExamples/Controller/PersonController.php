@@ -58,7 +58,7 @@ class PersonController extends AbstractActionController
         $col->setLabel('Displayname');
         $col->setWidth(25);
         $col->setSortDefault(1, 'ASC');
-        $col->setFormatter(new Email());
+        $col->addFormatter(new Email());
         $col->addStyle(new Style\Bold());
         $grid->addColumn($col);
 
